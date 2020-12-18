@@ -1,0 +1,29 @@
+@import '../../colors/colors.styl'
+
+--primary = --orange2
+
+.slide-input
+	display: flex
+	justify-content: center
+	align-items: center
+	width: 100%
+
+	.am-button
+		width: 40px
+		flex-shrink: 0
+		border: none
+		margin: 10px
+		color: --primary
+
+		&::before
+			border: none !important
+
+	.am-slider-track
+		background-color: --primary
+	.am-slider-handle
+		border-color: --primary
+		background-color: --orange0
+
+	.am-slider-wrapper
+		width: 100%
+		margin: 5px
