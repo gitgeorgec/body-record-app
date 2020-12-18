@@ -4,6 +4,7 @@ import {
 	convertDateStringToTimestamp,
 	formatDate,
 } from '../../lib/dayjs-utils';
+import { Button } from 'antd-mobile';
 import dayjs from 'dayjs';
 import DateRangeForm from '../../components/date-ranage-form';
 import VisxChart from '../../components/visx-chart';
@@ -45,11 +46,15 @@ function RecordPage() {
 			<div className={`${PREFIX_CLASS}__selected-info`}>
 				<h4>date: {date ? formatDate(date) : null}</h4>
 				<div>weight: {weight ? weight : null} kg</div>
+				<div>muscle: {muscle ? muscle : null} kg</div>
 				<div>fat: {fat ? fat : null} kg</div>
 				<div>bodyFat: {bodyFat ? bodyFat : null} %</div>
-				<div>muscle: {muscle ? muscle : null} %</div>
 			</div>
 		);
+	}
+
+	function _handleOutPutData() {
+		alert(JSON.stringify(bodyData))
 	}
 
 	return (
@@ -72,6 +77,11 @@ function RecordPage() {
 					)}
 				</ParentSize>
 			</div>
+			<Button
+				onClick={_handleOutPutData}
+			>
+				output data
+			</Button>
 			{_renderSelectInfo()}
 		</div>
 	);

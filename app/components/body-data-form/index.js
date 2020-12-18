@@ -15,9 +15,9 @@ function BodyDataForm({
 }) {
 	const [date, setDate] = useState(formatDate());
 	const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
-	const [weight, setWeight] = useState(50);
+	const [weight, setWeight] = useState(52);
+	const [muscle, setMuscle] = useState(30);
 	const [bodyFat, setBodyFat] = useState(20);
-	const [muscle, setMuscle] = useState(20);
 	const [fat, setFat] = useState(20);
 
 	function _handleSubmit(e) {
@@ -67,6 +67,20 @@ function BodyDataForm({
 			</div>
 			<div className={`${PREFIX_CLASS}__form-item`}>
 				<div className={`${PREFIX_CLASS}__form-item-circle`}>
+					<label htmlFor="muscle">
+						<div>肌肉量</div>
+						<div>{muscle} kg</div>
+					</label>
+				</div>
+				<SlideInput
+					onChange={setMuscle}
+					value={muscle}
+					step={0.1}
+					range={[0, 50]}
+				/>
+			</div>
+			<div className={`${PREFIX_CLASS}__form-item`}>
+				<div className={`${PREFIX_CLASS}__form-item-circle`}>
 					<label htmlFor="bodyFat">
 						<div>體脂</div>
 						<div>{bodyFat} %</div>
@@ -75,20 +89,6 @@ function BodyDataForm({
 				<SlideInput
 					onChange={setBodyFat}
 					value={bodyFat}
-					step={0.1}
-					range={[0, 50]}
-				/>
-			</div>
-			<div className={`${PREFIX_CLASS}__form-item`}>
-				<div className={`${PREFIX_CLASS}__form-item-circle`}>
-					<label htmlFor="muscle">
-						<div>肌肉量</div>
-						<div>{muscle} %</div>
-					</label>
-				</div>
-				<SlideInput
-					onChange={setMuscle}
-					value={muscle}
 					step={0.1}
 					range={[0, 50]}
 				/>

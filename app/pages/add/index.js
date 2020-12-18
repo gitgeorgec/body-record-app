@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Toast } from 'antd-mobile';
+import { Toast, Button } from 'antd-mobile';
 import BodyDataForm from '../../components/body-data-form';
 import { BodyDataContext } from '../../context';
 import localDB from '../../database';
@@ -14,6 +14,7 @@ const propTypes = {
 function AddPage({
 	onNavigate,
 }) {
+	const [ importJson, setImportJson ] = useState('')
 	const { bodyData, setBodyData } = useContext(BodyDataContext);
 
 	function _handleUpdateBodyData(newData) {
@@ -47,11 +48,49 @@ function AddPage({
 		}
 	}
 
+	async function _handleImportData() {
+		try {
+			const importedData = JSON.parse(importJson)
+			const importedDataLength = importedData.length;
+
+			for (let i =0; i < importedDataLength; i++) {
+				const newData = importedData[i]
+				const inserDate = newData.date;
+				await localDB.setItem(`${inserDate}`, newData)
+					.then(() => {
+						const updatedBodyData = bodyData.filter(data => data.date !== inserDate);
+
+						updatedBodyData.push(newData);
+						updatedBodyData.sort((a, b) => a.date - b.date);
+						setBodyData(updatedBodyData);
+					})
+					.catch(err => {
+						console.log(err);
+					});
+			}
+
+			Toast.success('import success');
+
+		} catch(err) {
+			Toast.success(err);
+		}
+
+		setImportJson('')
+	}
+
 	return (
 		<div className={PREFIX_CLASS}>
 			<BodyDataForm
 				onSubmit={_handleUpdateBodyData}
 			/>
+			<Button onClick={_handleImportData}>
+				Import Data
+			</Button>
+			<textarea
+				value={importJson}
+				onChange={(e) => setImportJson(e.target.value)}
+			>
+			</textarea>
 		</div>
 	);
 }
