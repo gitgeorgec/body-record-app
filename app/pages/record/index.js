@@ -4,11 +4,12 @@ import {
 	convertDateStringToTimestamp,
 	formatDate,
 } from '../../lib/dayjs-utils';
-import { Button } from 'antd-mobile';
+import { Button, Modal } from 'antd-mobile';
 import dayjs from 'dayjs';
 import DateRangeForm from '../../components/date-ranage-form';
 import VisxChart from '../../components/visx-chart';
 import { ParentSize } from '@visx/responsive';
+import { ExportOutlined } from '@ant-design/icons';
 import './style.styl';
 
 const PREFIX_CLASS = 'record-page';
@@ -20,6 +21,7 @@ const defaultDates = {
 function RecordPage() {
 	const [xDomain, setXDomain] = useState([dayjs().subtract(3, 'day'), dayjs().add(3, 'day')]);
 	const [selectData, setSelectData] = useState({});
+	const [ isExportModalVisible, setIsExportModalVisible ] = useState(false)
 	const { bodyData } = useContext(BodyDataContext);
 
 	useEffect(() => {
@@ -40,21 +42,26 @@ function RecordPage() {
 			bodyFat,
 			muscle,
 			fat,
+			description
 		} = selectData;
 
 		return (
-			<div className={`${PREFIX_CLASS}__selected-info`}>
-				<h4>date: {date ? formatDate(date) : null}</h4>
-				<div>weight: {weight ? weight : null} kg</div>
-				<div>muscle: {muscle ? muscle : null} kg</div>
-				<div>fat: {fat ? fat : null} kg</div>
-				<div>bodyFat: {bodyFat ? bodyFat : null} %</div>
-			</div>
+			<>
+				<div className={`${PREFIX_CLASS}__selected-info`}>
+					<h4>date: {date ? formatDate(date) : null}</h4>
+					<div>weight: {weight ? weight : null} kg</div>
+					<div>muscle: {muscle ? muscle : null} kg</div>
+					<div>fat: {fat ? fat : null} kg</div>
+					<div>bodyFat: {bodyFat ? bodyFat : null} %</div>
+				</div>
+				<h4  style={{ textAlign: 'center', width: '100%'}}>
+					備註
+				</h4>
+				<div style={{ textAlign: 'center', width: '100%', color: 'red'}}>
+					{description}
+				</div>
+			</>
 		);
-	}
-
-	function _handleOutPutData() {
-		alert(JSON.stringify(bodyData))
 	}
 
 	return (
@@ -77,12 +84,43 @@ function RecordPage() {
 					)}
 				</ParentSize>
 			</div>
-			<Button
-				onClick={_handleOutPutData}
-			>
-				output data
-			</Button>
 			{_renderSelectInfo()}
+			<Button
+				onClick={() => setIsExportModalVisible(true)}
+				style={{
+					background: '#FCAE48',
+					position: 'absolute',
+					bottom: '60px',
+					right: '20px',
+					borderRadius: '50%',
+					height: '30px',
+					width: '30px',
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+					boxShadow: '1px 1px 1px rgba(0,0,0,0.3)'
+				}}
+			>
+				<ExportOutlined />
+			</Button>
+			<Modal
+				popup
+				visible={isExportModalVisible}
+				onClose={() => setIsExportModalVisible(false)}
+				animationType="slide-up"
+			>
+				<div
+					style={{
+						padding: '10px',
+						display: 'flex',
+						background: '#FFE8C9',
+						height: '65vh',
+						overflowWrap: 'anywhere'
+					}}
+				>
+					{ JSON.stringify(bodyData) }
+				</div>
+			</Modal>
 		</div>
 	);
 }

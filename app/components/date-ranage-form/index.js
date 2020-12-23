@@ -41,6 +41,26 @@ function DateRangeForm({
 					size="small"
 					type="primary"
 					onClick={() => {
+						setStartDate(formatDate(dayjs().startOf('day').subtract(9, 'months')));
+						setEndDate(formatDate(dayjs().startOf('day')));
+					}}
+				>
+					九個月
+				</Button>
+				<Button
+					size="small"
+					type="primary"
+					onClick={() => {
+						setStartDate(formatDate(dayjs().startOf('day').subtract(6, 'months')));
+						setEndDate(formatDate(dayjs().startOf('day')));
+					}}
+				>
+					六個月
+				</Button>
+				<Button
+					size="small"
+					type="primary"
+					onClick={() => {
 						setStartDate(formatDate(dayjs().startOf('day').subtract(3, 'months')));
 						setEndDate(formatDate(dayjs().startOf('day')));
 					}}
@@ -56,26 +76,6 @@ function DateRangeForm({
 					}}
 				>
 					三十天
-				</Button>
-				<Button
-					size="small"
-					type="primary"
-					onClick={() => {
-						setStartDate(formatDate(dayjs().startOf('day').subtract(7, 'days')));
-						setEndDate(formatDate(dayjs().startOf('day')));
-					}}
-				>
-					七天
-				</Button>
-				<Button
-					size="small"
-					type="primary"
-					onClick={() => {
-						setStartDate(formatDate(dayjs().startOf('day').subtract(3, 'days')));
-						setEndDate(formatDate(dayjs().startOf('day')));
-					}}
-				>
-					三天
 				</Button>
 			</div>
 			<div className={`${PREFIX_CLASS}__dates`}>

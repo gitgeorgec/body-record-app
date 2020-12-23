@@ -26,7 +26,6 @@ function AppLayout() {
 				// localDB.keys().then(console.log);
 				// localDB.getItem().then(console.log)
 				localDB.iterate((value, key) => {
-					console.log(value)
 					localData.push(value);
 				}).then(() => {
 					setBodyData(localData)

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, DatePicker } from 'antd-mobile';
+import { Button, DatePicker,  } from 'antd-mobile';
 import SlideInput from '../slide-input';
 import { formatDate, convertDateStringToTimestamp } from '../../lib/dayjs-utils';
 import './style.styl';
@@ -19,6 +19,7 @@ function BodyDataForm({
 	const [muscle, setMuscle] = useState(30);
 	const [bodyFat, setBodyFat] = useState(20);
 	const [fat, setFat] = useState(20);
+	const [description, setDescription] = useState('')
 
 	function _handleSubmit(e) {
 		e.preventDefault();
@@ -29,7 +30,10 @@ function BodyDataForm({
 			bodyFat: bodyFat ? bodyFat : 0,
 			muscle: muscle ? muscle : 0,
 			fat: fat ? fat : 0,
+			description: description,
 		});
+
+		setDescription('')
 	}
 
 	return (
@@ -106,6 +110,14 @@ function BodyDataForm({
 					step={0.1}
 					range={[0, 50]}
 				/>
+			</div>
+			<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginBottom: '5px' }}>
+				<textarea
+					value={description}
+					onChange={e => setDescription(e.target.value)}
+					style={{ background: '#FFE8C9', borderRadius: '5px', textAlign: 'center', padding: '5px' }}
+					placeholder="備註"
+				></textarea>
 			</div>
 			<Button
 				type="primary"
