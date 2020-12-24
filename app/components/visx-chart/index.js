@@ -61,15 +61,16 @@ export default withTooltip(
 			domain: extent(xDomain),
 		}), [xMax, xDomain]);
 		const weightValueScale = useMemo(() => scaleLinear({
-			range: [yMax, 0],
-			domain: [0, (max(data, getWeightValue) || 0) + 15],
+			range: [yMax, 45],
+			domain: [45, Math.min((max(data, getWeightValue) || 0) + 15, 65)],
 			nice: true,
 		}), [yMax, data]);
 		const bodyFatValueScale = useMemo(() => scaleLinear({
-			range: [yMax, 0],
-			domain: [0, (max(data, getBodyFatValue) || 0) + 30],
+			range: [yMax, 15],
+			// domain: [10, Math.min(max(data, getBodyFatValue) || 0) + 30, 35],
+			domain: [15, 35],
 			nice: true,
-		}), [yMax, data]);
+		}), [yMax]);
 
 		// Tooltip handler
 		const handleTooltip = useCallback(event => {
@@ -200,7 +201,7 @@ export default withTooltip(
 				<LinePath
 					data={data}
 					x={d => dateScale(getDate(d))}
-					y={d => bodyFatValueScale(getBodyFatValue(d))}
+					y={d => bodyFatValueScale(getMuscleValue(d))}
 					yScale={bodyFatValueScale}
 					strokeWidth={3}
 					stroke="url(#muscle-stroke-gradient)"
@@ -209,7 +210,7 @@ export default withTooltip(
 				<LinePath
 					data={data}
 					x={d => dateScale(getDate(d))}
-					y={d => bodyFatValueScale(getMuscleValue(d))}
+					y={d => bodyFatValueScale(getBodyFatValue(d))}
 					yScale={bodyFatValueScale}
 					strokeWidth={3}
 					stroke="url(#body-fat-stroke-gradient)"
@@ -218,8 +219,8 @@ export default withTooltip(
 				<LinePath
 					data={data}
 					x={d => dateScale(getDate(d))}
-					y={d => weightValueScale(getFatValue(d))}
-					yScale={weightValueScale}
+					y={d => bodyFatValueScale(getFatValue(d))}
+					yScale={bodyFatValueScale}
 					strokeWidth={3}
 					stroke="url(#fat-stroke-gradient)"
 					curve={curveMonotoneX}
@@ -265,7 +266,7 @@ export default withTooltip(
 						{_renderSelectLinePoint(tooltipLeft, tooltipTop)}
 						{_renderSelectLinePoint(tooltipLeft, bodyFatValueScale(getBodyFatValue(tooltipData)))}
 						{_renderSelectLinePoint(tooltipLeft, bodyFatValueScale(getMuscleValue(tooltipData)))}
-						{_renderSelectLinePoint(tooltipLeft, weightValueScale(getFatValue(tooltipData)))}
+						{_renderSelectLinePoint(tooltipLeft, bodyFatValueScale(getFatValue(tooltipData)))}
 					</g>
 				)}
 			</svg>

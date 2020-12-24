@@ -4,7 +4,7 @@ import {
 	convertDateStringToTimestamp,
 	formatDate,
 } from '../../lib/dayjs-utils';
-import { Button, Modal } from 'antd-mobile';
+import { Button } from 'antd-mobile';
 import dayjs from 'dayjs';
 import DateRangeForm from '../../components/date-ranage-form';
 import VisxChart from '../../components/visx-chart';
@@ -21,7 +21,6 @@ const defaultDates = {
 function RecordPage() {
 	const [xDomain, setXDomain] = useState([dayjs().subtract(3, 'day'), dayjs().add(3, 'day')]);
 	const [selectData, setSelectData] = useState({});
-	const [ isExportModalVisible, setIsExportModalVisible ] = useState(false)
 	const { bodyData } = useContext(BodyDataContext);
 
 	useEffect(() => {
@@ -49,19 +48,32 @@ function RecordPage() {
 			<>
 				<div className={`${PREFIX_CLASS}__selected-info`}>
 					<h4>date: {date ? formatDate(date) : null}</h4>
-					<div>weight: {weight ? weight : null} kg</div>
-					<div>muscle: {muscle ? muscle : null} kg</div>
-					<div>fat: {fat ? fat : null} kg</div>
-					<div>bodyFat: {bodyFat ? bodyFat : null} %</div>
+					<div style={{ color: 'white'}}>weight: {weight ? weight : null} kg</div>
+					<div style={{ color: 'green'}}>muscle: {muscle ? muscle : null} kg</div>
+					<div style={{ color: 'red'}}>fat: {fat ? fat : null} kg</div>
+					<div style={{ color: 'yellow'}}>bodyFat: {bodyFat ? bodyFat : null} %</div>
 				</div>
-				<h4  style={{ textAlign: 'center', width: '100%'}}>
+				<h4 style={{ textAlign: 'center', width: '100%', margin: '3px'}}>
 					備註
 				</h4>
-				<div style={{ textAlign: 'center', width: '100%', color: 'red'}}>
+				<div style={{ textAlign: 'center', width: '100%'}}>
 					{description}
 				</div>
 			</>
 		);
+	}
+
+	function _downLoadData() {
+		var element = document.createElement('a');
+		element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(bodyData)));
+		element.setAttribute('download', 'body-record.text');
+		element.style.display = 'none';
+
+		document.body.appendChild(element);
+
+		element.click();
+
+		document.body.removeChild(element);
 	}
 
 	return (
@@ -86,7 +98,7 @@ function RecordPage() {
 			</div>
 			{_renderSelectInfo()}
 			<Button
-				onClick={() => setIsExportModalVisible(true)}
+				onClick={_downLoadData}
 				style={{
 					background: '#FCAE48',
 					position: 'absolute',
@@ -103,24 +115,6 @@ function RecordPage() {
 			>
 				<ExportOutlined />
 			</Button>
-			<Modal
-				popup
-				visible={isExportModalVisible}
-				onClose={() => setIsExportModalVisible(false)}
-				animationType="slide-up"
-			>
-				<div
-					style={{
-						padding: '10px',
-						display: 'flex',
-						background: '#FFE8C9',
-						height: '65vh',
-						overflowWrap: 'anywhere'
-					}}
-				>
-					{ JSON.stringify(bodyData) }
-				</div>
-			</Modal>
 		</div>
 	);
 }
