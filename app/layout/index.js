@@ -39,8 +39,8 @@ function AppLayout() {
 			<div className={PREFIX_CLASS}>
 				<TabBar
 					barTintColor={themeLight.btnBg2}
-					tintColor="black"
-					unselectedTintColor={themeLight.btnBg}
+					tintColor={themeLight.btnBg}
+					unselectedTintColor="black"
 				>
 					<TabBar.Item
 						title="Record"

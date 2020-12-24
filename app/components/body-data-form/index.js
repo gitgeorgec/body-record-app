@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, DatePicker,  } from 'antd-mobile';
 import SlideInput from '../slide-input';
 import { formatDate, convertDateStringToTimestamp } from '../../lib/dayjs-utils';
+import { themeLight } from '../../colors/color';
 import './style.styl';
 
 const PREFIX_CLASS = 'body-data-form';
@@ -115,7 +116,7 @@ function BodyDataForm({
 				<textarea
 					value={description}
 					onChange={e => setDescription(e.target.value)}
-					style={{ background: '#FFE8C9', borderRadius: '5px', textAlign: 'center', padding: '5px' }}
+					style={{ background: themeLight.weightLine, borderRadius: '5px', textAlign: 'center', padding: '5px' }}
 					placeholder="備註"
 				></textarea>
 			</div>

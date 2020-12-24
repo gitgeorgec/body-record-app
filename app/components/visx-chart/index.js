@@ -15,7 +15,7 @@ import throttle from 'lodash/throttle';
 import { themeLight } from '../../colors/color';
 
 const background = themeLight.cardBg;
-const background2 = themeLight.btnBg;
+const background2 = themeLight.btnBg2;
 const accentColor = themeLight.weightLine;
 const accentColorDark = themeLight.line;
 const axisBottomTickLabelProps = {
@@ -61,14 +61,14 @@ export default withTooltip(
 			domain: extent(xDomain),
 		}), [xMax, xDomain]);
 		const weightValueScale = useMemo(() => scaleLinear({
-			range: [yMax, 45],
-			domain: [45, Math.min((max(data, getWeightValue) || 0) + 15, 65)],
+			range: [yMax, 40],
+			domain: [40, Math.min((max(data, getWeightValue) || 0) + 15, 65)],
 			nice: true,
 		}), [yMax, data]);
 		const bodyFatValueScale = useMemo(() => scaleLinear({
-			range: [yMax, 15],
+			range: [yMax, 10],
 			// domain: [10, Math.min(max(data, getBodyFatValue) || 0) + 30, 35],
-			domain: [15, 35],
+			domain: [10, 35],
 			nice: true,
 		}), [yMax]);
 
@@ -169,10 +169,10 @@ export default withTooltip(
 					fill="url(#area-background-gradient)"
 				/>
 				<LinearGradient id="area-background-gradient" from={background} to={background2}/>
-				<LinearGradient id="weigth-stroke-gradient" from="white" to="white" toOpacity={0.8}/>
-				<LinearGradient id="muscle-stroke-gradient" from="green" to="green" toOpacity={0.6}/>
+				<LinearGradient id="weigth-stroke-gradient" from="blue" to="blue" toOpacity={0.8}/>
+				<LinearGradient id="muscle-stroke-gradient" from="pink" to="pink" toOpacity={0.6}/>
 				<LinearGradient id="body-fat-stroke-gradient" from="yellow" to="yellow" toOpacity={0.6}/>
-				<LinearGradient id="fat-stroke-gradient" from="red" to="red" toOpacity={0.6}/>
+				<LinearGradient id="fat-stroke-gradient" from="purple" to="purple" toOpacity={0.6}/>
 				<GridRows
 					scale={weightValueScale}
 					width={xMax}

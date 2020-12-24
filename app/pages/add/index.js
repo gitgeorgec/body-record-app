@@ -4,6 +4,7 @@ import { Toast, Button, Modal } from 'antd-mobile';
 import BodyDataForm from '../../components/body-data-form';
 import { BodyDataContext } from '../../context';
 import localDB from '../../database';
+import { themeLight } from '../../colors/color';
 import './style.styl';
 
 const PREFIX_CLASS = 'add-page';
@@ -89,7 +90,7 @@ function AddPage({
 				onSubmit={_handleUpdateBodyData}
 			/>
 			<div style={{ marginTop: '5px' }}>
-				<Button onClick={() => setIsImportModalVisible(true)} style={{ background: '#FCAE48' }}>
+				<Button onClick={() => setIsImportModalVisible(true)} style={{ background: themeLight.btnBg2, color: 'white' }}>
 					匯入
 				</Button>
 			</div>
@@ -99,17 +100,17 @@ function AddPage({
 				onClose={() => setIsImportModalVisible(false)}
 				animationType="slide-up"
 			>
-				<div style={{ padding: '10px', display: 'flex', flexDirection: 'column', background: '#FFE8C9' }}>
+				<div style={{ padding: '10px', display: 'flex', flexDirection: 'column', background: themeLight.bg }}>
 					<textarea
 						value={importJson}
 						onChange={(e) => setImportJson(e.target.value)}
 						rows={20}
-						style={{ width: '100%', marginBottom: '5px', background: '#FFE8C9', borderRadius: '5px' }}
+						style={{ marginBottom: '5px', background: themeLight.weightLine, borderRadius: '5px' }}
 					>
 					</textarea>
 					<Button
 						onClick={_handleImportData}
-						style={{ background: '#FCAE48' }}
+						style={{ background: themeLight.btnBg2, color: 'white' }}
 					>
 						Import Data
 					</Button>

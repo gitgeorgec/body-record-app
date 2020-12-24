@@ -10,6 +10,7 @@ import DateRangeForm from '../../components/date-ranage-form';
 import VisxChart from '../../components/visx-chart';
 import { ParentSize } from '@visx/responsive';
 import { ExportOutlined } from '@ant-design/icons';
+import { themeLight } from '../../colors/color';
 import './style.styl';
 
 const PREFIX_CLASS = 'record-page';
@@ -48,10 +49,22 @@ function RecordPage() {
 			<>
 				<div className={`${PREFIX_CLASS}__selected-info`}>
 					<h4>date: {date ? formatDate(date) : null}</h4>
-					<div style={{ color: 'white'}}>weight: {weight ? weight : null} kg</div>
-					<div style={{ color: 'green'}}>muscle: {muscle ? muscle : null} kg</div>
-					<div style={{ color: 'red'}}>fat: {fat ? fat : null} kg</div>
-					<div style={{ color: 'yellow'}}>bodyFat: {bodyFat ? bodyFat : null} %</div>
+					<div>
+						<div style={{ display: 'inline-block', background: 'blue', width: 10, height: 10, borderRadius: '50%', marginRight: 5 }}></div>
+						weight: {weight ? weight : null} kg
+					</div>
+					<div>
+						<div style={{ display: 'inline-block', background: 'pink', width: 10, height: 10, borderRadius: '50%', marginRight: 5 }}></div>
+						muscle: {muscle ? muscle : null} kg
+					</div>
+					<div>
+						<div style={{ display: 'inline-block', background: 'purple', width: 10, height: 10, borderRadius: '50%', marginRight: 5 }}></div>
+						fat: {fat ? fat : null} kg
+					</div>
+					<div>
+						<div style={{ display: 'inline-block', background: 'yellow', width: 10, height: 10, borderRadius: '50%', marginRight: 5 }}></div>
+						bodyFat: {bodyFat ? bodyFat : null} %
+					</div>
 				</div>
 				<h4 style={{ textAlign: 'center', width: '100%', margin: '3px'}}>
 					備註
@@ -100,7 +113,8 @@ function RecordPage() {
 			<Button
 				onClick={_downLoadData}
 				style={{
-					background: '#FCAE48',
+					background: themeLight.btnBg2,
+					color: 'white',
 					position: 'absolute',
 					bottom: '60px',
 					right: '20px',
@@ -110,7 +124,7 @@ function RecordPage() {
 					display: 'flex',
 					justifyContent: 'center',
 					alignItems: 'center',
-					boxShadow: '1px 1px 1px rgba(0,0,0,0.3)'
+					boxShadow: '1px 1px 2px rgba(0,0,0,0.3)'
 				}}
 			>
 				<ExportOutlined />
